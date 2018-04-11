@@ -1,4 +1,4 @@
-# InstaVoting-App
+# ChildCare-Calculator
 
 ## Installation
 ####1. Clone this repository or download the ZIP file
