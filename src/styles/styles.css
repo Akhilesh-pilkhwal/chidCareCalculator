@@ -365,3 +365,42 @@ div:hover > .iconRound.animated:before {
   left: -25px;
   opacity: 0.1;
 }
+.fr_opvang select, .fr_opvang input {
+	width:100%;
+	-webkit-box-sizing: border-box;
+	     -moz-box-sizing: border-box;
+	          box-sizing: border-box;
+}
+
+.fr_opvang input[type="text"] {
+	height:40px;
+}
+
+
+.fr_opvang .begin {
+	visibility:hidden;
+	height:0px;
+	overflow:hidden;
+}
+
+
+
+
+
+.opvangtitle {
+	font-weight: 700;
+}
+.stapSelect {
+	display:none;
+}
+
+.fr_opvangOpties {
+	display:none;
+}
+
+.fr_opvang.error .fr_opvang_inner {
+	border-color:#f00 !important;
+}
+.no_opvang {
+	display: none;
+}

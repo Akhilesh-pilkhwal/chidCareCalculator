@@ -1,6 +1,6 @@
 import React from "react";
 import SelectInput from "../components/common/SelectInput";
-
+import ChildcareDetails from "../components/childcaredetails.component";
 export class ManageCalculatorPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -9,6 +9,11 @@ export class ManageCalculatorPage extends React.Component {
       selectedIncome: "18176",
       selectedWorkingHours: "0",
       selectedKidsAge: "",
+      selectedlocation: "",
+      selectedSchool: "",
+      selectedChildcare: "",
+      selectedtypeofcare: "",
+      childs: [],
       incomes: [
         {
           value: "18176",
@@ -52,6 +57,11 @@ export class ManageCalculatorPage extends React.Component {
     this.handleIncomeChange = this.handleIncomeChange.bind(this);
     this.handleworkinghoursChange = this.handleworkinghoursChange.bind(this);
     this.handlekidsageChange = this.handlekidsageChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleTypeOfCareChange = this.handleTypeOfCareChange.bind(this);
+    this.handleSchoolChange = this.handleSchoolChange.bind(this);
+    this.handleChildcareChange = this.handleChildcareChange.bind(this);
+    this.addMoreChild = this.addMoreChild.bind(this);
   }
 
   handleIncomeChange(e) {
@@ -69,7 +79,63 @@ export class ManageCalculatorPage extends React.Component {
       selectedKidsAge: e.target.value
     });
   }
+  handleLocationChange(e) {
+    this.setState({
+      selectedlocation: e.target.value
+    });
+    if (e.target.value === "0") {
+      this.setState({
+        selectedtypeofcare: 0,
+        selectedSchool: 0,
+        selectedChildcare: 0
+      });
+    }
+  }
+  handleSchoolChange(e) {
+    this.setState({
+      selectedSchool: e.target.value
+    });
+    if (e.target.value === "0") {
+      this.setState({
+        selectedChildcare: 0
+      });
+    }
+  }
+  handleTypeOfCareChange(e) {
+    this.setState({
+      selectedtypeofcare: e.target.value
+    });
+    if (e.target.value === "0") {
+      this.setState({
+        selectedSchool: 0,
+        selectedChildcare: 0
+      });
+    }
+  }
+  handleChildcareChange(e) {
+    this.setState({
+      selectedChildcare: e.target.value
+    });
+  }
+  addMoreChild() {
+    const childs = this.state.childs.concat(ChildcareDetails);
+    this.setState({ childs });
+  }
   render() {
+    const morechilds = this.state.childs.map((Element, index) => {
+      return `<ChildcareDetails
+      handleChildcareChange={this.handleChildcareChange}
+      handleSchoolChange={this.handleSchoolChange}
+      handleLocationChange={this.handleLocationChange}
+      handleTypeOfCareChange={
+        this.handleTypeOfCareChange
+      }
+      selectedChildcare={this.state.selectedChildcare}
+      selectedlocation={this.state.selectedlocation}
+      selectedSchool={this.state.selectedSchool}
+      selectedtypeofcare={this.state.selectedtypeofcare}
+    />`;
+    });
     return (
       <div id="container">
         <div id="wrapper">
@@ -144,18 +210,24 @@ export class ManageCalculatorPage extends React.Component {
                         </div>
                         <div className="fr_kind_opvangtypes_wrap">
                           <div className="fr_kind_opvangtypes">
-                            <div
-                              className="fr_opvang"
-                              data-uren-maand="0"
-                              data-opvangobjid="99336082"
-                            >
-                              <div className="fr_opvang_inner">
-                                <p>Childcare</p>
-                              </div>
-                            </div>
+                            <ChildcareDetails
+                              handleChildcareChange={this.handleChildcareChange}
+                              handleSchoolChange={this.handleSchoolChange}
+                              handleLocationChange={this.handleLocationChange}
+                              handleTypeOfCareChange={
+                                this.handleTypeOfCareChange
+                              }
+                              selectedChildcare={this.state.selectedChildcare}
+                              selectedlocation={this.state.selectedlocation}
+                              selectedSchool={this.state.selectedSchool}
+                              selectedtypeofcare={this.state.selectedtypeofcare}
+                            />
                           </div>
                         </div>
-                        <span className="link voegOpvangToe">
+                        <span
+                          className="link voegOpvangToe"
+                          onClick={this.addMoreChild}
+                        >
                           <span className="iconRound large animated">
                             <span className="icon">+</span>
                           </span>{" "}
